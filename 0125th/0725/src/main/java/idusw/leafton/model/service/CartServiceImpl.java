@@ -138,5 +138,11 @@ public class CartServiceImpl implements CartService{
         return cartItem.getCartItemId();
 
     }
+    //전체 삭제 기능
+    @Override
+    public void deleteCart(Long cartId) {
+        cartItemRepository.deleteByCart_CartId(cartId);
+        cartRepository.deleteById(cartId);
+    }
 
 }

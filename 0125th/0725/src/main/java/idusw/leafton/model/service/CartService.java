@@ -22,5 +22,7 @@ public interface CartService {
 
     Long addOneCart(MemberDTO member, ProductDTO product, int count);
 
+    void deleteCart(Long cartId);
+
 
 }
