@@ -38,7 +38,6 @@ public class CartController {
             //장바구니에 들어있는 상품 모두 가져오기
             List<CartItemDTO> cartItemList = cartService.allUserCartView(userCart);
 
-
             //장바구니에 들어있는 상뭎들의 총 가격 -> 주문에서 처리해야 할 듯
             int totalPrice = 0; // 최종 주문 정보에 나타내기 위한 물품 총 가격
             int totalCount = 0; // 최종 주문 정보에 나타내기 위한 물품 총 개수

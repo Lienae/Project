@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="../../static/css/common.css">
     <link rel="stylesheet" href="../../static/css/cart.css">
 
-
-
     <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 </head>
 <body>
@@ -32,15 +30,12 @@
     </div>
 </section>
 <!-- end: breadcrumbs -->
-
-
 <main id="product">
     <section class="order">
         <nav>
             <h1>장바구니</h1>
             <p>
                 HOME >
-
                 <strong>CART</strong>
             </p>
         </nav>
@@ -56,12 +51,18 @@
                     <th>주문</th>
                 </tr>
                 <tr th:if="${cartItems.isEmpty()}">
-                    <td colspan="7">장바구니에 상품이 없습니다.</td>
+                    <td colspan="7" style="height:200px;">
+                        <div class="noProduct">장바구니에 담은 상품이 없습니다.</div>
+                        <div class="goShop">
+                            <a th:href="@{/product/shop}">추천 상품 보기 ></a>
+                        </div>
+                    </td>
                 </tr>
                 <tr th:each="cartItem : ${cartItems}" th:unless="${cartItems.isEmpty()}">
                     <td><article>
-                        <a href="#">
-                            <img src="	https://via.placeholder.com/80x80" alt="1">
+                        <a th:href="@{/product/product/{productId}(productId=${cartItem.getProductDTO().getProductId()})}">
+                            <img th:src="${cartItem.getProductDTO().getMainImage()}" alt="x">
+                           <!-- <img src="https://via.placeholder.com/80x80" alt="1"> -->
                         </a>
                         <div>
                             <h2 th:text="${cartItem.getProductDTO().getName()}"><a href="#">상품명</a></h2>
@@ -73,7 +74,7 @@
                     <td th:if="${cartItem.getProductDTO().getSalePercentage() == 0}" th:text="'적용된 할인 없음'">할인금액</td>
                     <td th:unless="${cartItem.getProductDTO().getSalePercentage() == 0}">
                             <span th:with="discountedPrice=${cartItem.getProductDTO().getPrice() *
-                            (1 - cartItem.getProductDTO().getSalePercentage()/100.0)}" th:text="'₩' + ${#numbers.formatInteger(discountedPrice.intValue(), 0, 'COMMA')}"></span>
+                            (1 - cartItem.getProductDTO().getSalePercentage()/100.0)}" th:text="'₩' + ${#numbers.formatInteger(cartItem.getProductDTO().getPrice() - discountedPrice.intValue(), 0, 'COMMA')}"></span>
                     </td>
                     <td th:if="${cartItem.getProductDTO().getSalePercentage() == 0}" th:text="'₩' + ${#numbers.formatInteger(cartItem.getProductDTO().getPrice() * cartItem.getCount(), 1, 'COMMA')}"></td>
                     <td th:unless="${cartItem.getProductDTO().getSalePercentage() == 0}">

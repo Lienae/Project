@@ -74,7 +74,6 @@ public class CartServiceImpl implements CartService{
         }
         return UserCartItems;
     }
-
     // 장바구니에 존재하는 상품들의 정보를 DB에서 찾아오기
     @Override
     public CartItemDTO findCartItemById(Long cartItem){
@@ -85,7 +84,6 @@ public class CartServiceImpl implements CartService{
             return null;
         }
     }
-
     // 사용자의 장바구니 정보 찾기
     @Override
     public CartDTO findMemberCart(Long memberId){
@@ -144,8 +142,7 @@ public class CartServiceImpl implements CartService{
         cartItemRepository.deleteByCart_CartId(cartId);
         cartRepository.deleteById(cartId);
     }
-
-
+    // 장바구니 생성
     @Override
     public void createCart(MemberDTO result){
         Cart.createCart(result);
